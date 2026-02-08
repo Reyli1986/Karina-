@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi San Valentín</title>
+    <style>
+        /* Diseño básico */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f1f1;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-top: 100px;
+            color: #e91e63;
+        }
+
+        .options {
+            margin-top: 50px;
+        }
+
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .yes {
+            background-color: #e91e63;
+            color: white;
+        }
+
+        .no {
+            background-color: #ddd;
+            color: #666;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Estilo para los corazones */
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 0, 0, 0.7);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: fall 5s infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Animación de caída de los corazones */
+        @keyframes fall {
+            0% {
+                top: -40px;
+                left: calc(100% * random());
+            }
+            100% {
+                top: 100%;
+                left: calc(100% * random());
+            }
+        }
+
+        /* Desactivación de las opciones cuando se elige "No" */
+        .no-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: move 0.5s infinite;
+        }
+
+        @keyframes move {
+            0% { left: 50%; }
+            25% { left: 60%; }
+            50% { left: 40%; }
+            75% { left: 50%; }
+            100% { left: 60%; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mi Niña Hermosa ¿Quieres ser mi San Valentín?</h1>
+
+    <div class="options">
+        <button class="yes" onclick="answerYes()">Sí❣️</button>
+        <button class="no" id="noButton" onclick="answerNo()">No... 😞</button>
+    </div>
+
+    <script>
+        // Generación de corazones
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            document.body.appendChild(heart);
+
+            // Mover el corazón al azar
+            const startLeft = Math.random() * 100;
+            const animationDuration = Math.random() * 3 + 4; // Duración aleatoria entre 4s y 7s
+
+            heart.style.left = `${startLeft}%`;
+            heart.style.animationDuration = `${animationDuration}s`;
+        }
+
+        // Generar corazones en intervalos
+        setInterval(createHeart, 200);
+
+        // Función para cuando se presiona "Sí"
+        function answerYes() {
+            window.location.href = "about:blank"; // Cambiar página
+            document.body.innerHTML = `
+                <h1>Eres lo mejor que me ha pasado Karina, ¡FELIZ SAN VALENTÍN!</h1>
+            `;
+        }
+
+        // Función para cuando se presiona "No"
+        function answerNo() {
+            // Hacer que el botón "No" se mueva infinitamente
+            const noButton = document.getElementById("noButton");
+            noButton.classList.add("no-button");
+
+            // Deshabilitar el botón "No"
+            noButton.disabled = true;
+            noButton.style.pointerEvents = "none";
+        }
+    </script>
+
+</body>
+</html>
